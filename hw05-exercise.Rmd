@@ -1,0 +1,44 @@
+---
+title: "hw05CarolineSeip"
+author: "Caroline Seip"
+date: "October 16, 2018"
+output: html_document
+---
+#Table of Contents
+
+#Load packages
+```{r}
+library(gapminder)
+library(tidyverse)
+library(forcats)
+```
+#Part 1: Factor management
+
+##Drop Oceania
+
+```{r}
+glimpse(gapminder)
+```
+
+
+```{r}
+noO <- gapminder %>%
+  filter(continent != "Oceania") %>% 
+  glimpse()
+```
+
+```{r}
+glimpse(gapminder)
+```
+
+##Remove unused factor levels
+
+```{r}
+dropO <- noO %>% 
+  mutate(continent = fct_drop(continent))
+glimpse(dropO)
+```
+
+#Reorder the levels of country
+
+
