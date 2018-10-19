@@ -15,6 +15,7 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr)) 
 suppressPackageStartupMessages(library(gapminder)) 
 suppressPackageStartupMessages(library(plotly)) 
+suppressPackageStartupMessages(library(htmlwidgets))
 ```
 
 #Part 1: Factor management
@@ -163,8 +164,10 @@ Now we will make this graph using `plotly`
 
 ```{r}
 #Make plotly graph with object `l`
-ply <- ggplotly(l)
-#Save it as an html file
-
+gg <- ggplotly(l)
+#Print plotly graph
+gg
+#Save plotly as html
+htmlwidgets::saveWidget(gg, file = "gg.html")
 ```
 
