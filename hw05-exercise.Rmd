@@ -7,38 +7,78 @@ output: github_document
 #Table of Contents
 
 #Load packages
+
+Load the required packages for this assignment:
+
 ```{r}
-library(gapminder)
-library(tidyverse)
-library(forcats)
+suppressPackageStartupMessages(library(tidyverse))      
+suppressPackageStartupMessages(library(knitr)) 
+suppressPackageStartupMessages(library(gapminder)) 
+suppressPackageStartupMessages(library(plotly)) 
 ```
+
 #Part 1: Factor management
+
+In this section we will determine whether we are working with factors, then drop factors and reorder the levels.
+
+First let's check if we are working with factors:
+
+```{r}
+glimpse(gapminder)
+```
+
+Ok, so now we know that country and continent are both factors, and there are 1704 observations in the gapminder dataset.
+
+Let's drop the continent Oceania from the gapminder dataset now:
 
 ##Drop Oceania
 
 ```{r}
-glimpse(gapminder)
-```
-
-
-```{r}
-noO <- gapminder %>%
-  filter(continent != "Oceania") %>% 
+noO <- gapminder %>% 
+  filter(continent != "Oceania") %>% #filter gapminder dataset for continents that are not Oceania
   glimpse()
 ```
 
+Now we can see that the tibble only contains 1680 observations. So it worked! We removed Oceania.
+
+Let's check the levels of the continent factor of our new object:
+
 ```{r}
-glimpse(gapminder)
+unique(noO$continent) #check levels of continent
 ```
+
+Uh oh! There are no values for Oceania in the new object, but it still exists as a level. Let's get rid of it.
 
 ##Remove unused factor levels
 
+Using `fct_drop` let's remove the unused factor level:
+
 ```{r}
-dropO <- noO %>% 
-  mutate(continent = fct_drop(continent))
-glimpse(dropO)
+dropO <- noO %>% #make a new variable
+  mutate(continent = fct_drop(continent)) #drop unused factors of continent
+
+unique(dropO$continent) #check levels of continent in the new variable
 ```
 
+Now we can see that Oceania was removed as a factor, yay!
+
 #Reorder the levels of country
+
+For this part I will reorder the levels of continent by minimum life expectancy using `fct_reorder`.
+
+```{r}
+gapminder %>% 
+  #Make a plot, reordering continent by minimum life expectancy
+  ggplot(aes(fct_reorder(continent, lifeExp, .fun = min), lifeExp, fill = continent)) +
+  #Add a violin plot
+  geom_violin() +
+  #Add an x label
+  xlab("Continent") +
+  #Add a y label
+  ylab("Life expectancy (years)")
+```
+
+Yay! We reordered the continents by minimum life expectancy.
+
 
 
