@@ -2,7 +2,7 @@
 title: "hw05CarolineSeip"
 author: "Caroline Seip"
 date: "October 16, 2018"
-output: html_document
+output: github_document
 ---
 #Table of Contents
 
