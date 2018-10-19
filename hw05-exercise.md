@@ -231,11 +231,11 @@ Let's see how we could clean this up.
 -   Colour each continent differently
 -   Add meaningful x and y labels, and a title
 -   Remove unnecessary information, in this case, the legend
--   Add a theme, I chose `minimal` to keep it clean
+-   Add a theme, I chose `minimal` to keep it clean, and then added a background of `ghostwhite` :ghost: spooky
 
 ``` r
-#Use gapminder dataset
-gapminder %>%
+#Store graph as variable `l`
+l <- (gapminder %>%
 #Plot continent vs lifeExp, reorder by lifeExp
 ggplot(aes(fct_reorder(continent, lifeExp, .fun = median), lifeExp, fill = continent)) +
 #Add a violin plot
@@ -249,7 +249,21 @@ ggplot(aes(fct_reorder(continent, lifeExp, .fun = median), lifeExp, fill = conti
   #Remove the legend
   guides(fill = FALSE) +
   #Add a theme
-  theme_minimal()
+  theme_minimal() +
+  #Change font size of axis text
+  theme(axis.text = element_text(size=10),
+        #Change panel background colour
+        panel.background = element_rect(fill="ghostwhite")))
+#Print graph
+l
 ```
 
 ![](hw05-exercise_files/figure-markdown_github/unnamed-chunk-11-1.png)
+
+Now we will make this graph using `plotly`
+
+``` r
+#Make plotly graph with object `l`
+ply <- ggplotly(l)
+#Save it as an html file
+```
