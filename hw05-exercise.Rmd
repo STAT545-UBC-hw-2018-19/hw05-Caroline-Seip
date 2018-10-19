@@ -172,8 +172,6 @@ Now we will make this graph using `plotly`
 ```{r}
 #Make plotly graph with object `l`
 gg <- ggplotly(l)
-#Print plotly graph
-gg
 #Save plotly as html
 htmlwidgets::saveWidget(gg, file = "gg.html")
 ```
