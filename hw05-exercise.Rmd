@@ -168,7 +168,15 @@ Now we will make this graph using `plotly`
 gg <- ggplotly(l)
 #Print plotly graph
 gg
-#Save plotly as html, commented out so plotly could be attached as html
+#Save plotly as html
 htmlwidgets::saveWidget(gg, file = "gg.html")
+```
+
+#Part 4: Writing figures to file
+
+##Use `ggsave()`
+
+```{r}
+ggsave("lifeExpplot.png")
 ```
 
