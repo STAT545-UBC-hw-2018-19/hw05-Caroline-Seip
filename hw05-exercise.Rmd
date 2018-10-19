@@ -3,6 +3,7 @@ title: "hw05CarolineSeip"
 author: "Caroline Seip"
 date: "October 16, 2018"
 output: github_document
+always_allow_html: yes
 ---
 #Table of Contents
 
@@ -167,7 +168,7 @@ Now we will make this graph using `plotly`
 gg <- ggplotly(l)
 #Print plotly graph
 gg
-#Save plotly as html
+#Save plotly as html, commented out so plotly could be attached as html
 htmlwidgets::saveWidget(gg, file = "gg.html")
 ```
 
