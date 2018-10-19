@@ -6,6 +6,12 @@ output: github_document
 always_allow_html: yes
 ---
 #Table of Contents
+- Load packages
+- Part 1: Factor management
+- Part 2: File I/O
+- Part 3: Visualization design
+- Part 4: Writing figures to file
+
 
 #Load packages
 
@@ -172,11 +178,17 @@ gg
 htmlwidgets::saveWidget(gg, file = "gg.html")
 ```
 
+Check out my html of the plotly graph here: https://github.com/STAT545-UBC-students/hw05-Caroline-Seip/blob/master/gg.html
+
 #Part 4: Writing figures to file
 
 ##Use `ggsave()`
 
 ```{r}
-ggsave("lifeExpplot.png")
+#Save last plot as png
+ggsave("lifeExpplot.png", width = 10, height = 8, dpi = 900)
 ```
+
+Check out the png here:https://github.com/STAT545-UBC-students/hw05-Caroline-Seip/blob/master/lifeExpplot.png
+
 
