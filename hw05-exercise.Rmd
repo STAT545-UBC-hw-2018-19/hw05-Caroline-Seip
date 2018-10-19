@@ -62,7 +62,7 @@ unique(dropO$continent) #check levels of continent in the new variable
 
 Now we can see that Oceania was removed as a factor, yay!
 
-#Reorder the levels of country
+##Reorder the levels of continent
 
 For this part I will reorder the levels of continent by minimum life expectancy using `fct_reorder`.
 
@@ -75,10 +75,81 @@ gapminder %>%
   #Add an x label
   xlab("Continent") +
   #Add a y label
-  ylab("Life expectancy (years)")
+  ylab("Life expectancy (years)") +
+  #Remove the legend
+  guides(fill = FALSE)
 ```
 
 Yay! We reordered the continents by minimum life expectancy.
 
+#Part 2: File I/O
 
+For this section I will create a new dataset by filtering the gapminder dataset for only Oceania, reordering by population size, write the file as a .csv to my local drive, and read the .csv back into R.
+
+```{r}
+OceanaData <- gapminder %>% #make a new dataset
+  filter(continent == "Oceania") %>% #filter for Oceana
+  arrange(pop) #arrange by population
+
+write_csv(OceanaData, "OceanaData.csv") #write the new data to a csv
+
+readOceana <- read_csv("OceanaData.csv") #read the csv back in
+```
+
+Let's look at what the data looked like before we wrote it to a csv
+
+```{r}
+OceanaData %>% 
+  kable()
+```
+
+Great, it filtered for Oceania and ordered by population, like I wanted.
+
+Now let's see what the dataset looks like after we read it back in:
+
+```{r}
+readOceana %>% 
+  kable()
+```
+
+Great! It looks like the filtering and arranging survived through being written and read as a csv.
+
+#Part 3: Visualization design
+
+In this section I will recreate a graph I made in hw01. 
+
+My graph from hw01 looked like this:
+
+```{r}
+plot(gapminder$continent, gapminder$lifeExp)
+```
+
+Let's see how we could clean this up. 
+
+- Use `ggplot2` instead of base R graphics
+- Use violin plots over boxplots to better portray the shape of the data
+- Reorder your data in a meaningful way, for this I ordered by median life expectancy
+- Colour each continent differently
+- Add meaningful x and y labels, and a title
+- Remove unnecessary information, in this case, the legend
+- Add a theme, I chose `minimal` to keep it clean
+
+```{r}
+#Use gapminder dataset
+gapminder %>%
+#Plot continent vs lifeExp, reorder by lifeExp
+ggplot(aes(fct_reorder(continent, lifeExp, .fun = median), lifeExp, fill = continent)) +
+#Add a violin plot
+  geom_violin() +
+  #Add an x label
+  xlab("Continent") +
+  #Add a y label
+  ylab("Life expectancy (years)") +
+  #Add a title
+  ggtitle("Life expectancy by continent (1952-2007)") +
+  #Remove the legend
+  guides(fill = FALSE) +
+  #Add a theme
+  theme_minimal()
+```
 
